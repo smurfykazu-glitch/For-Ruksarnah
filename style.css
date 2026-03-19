@@ -1,0 +1,148 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 100%);
+    --accent: #ff8fa3;
+    --text-color: #5d4037;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    overflow: hidden;
+    height: 100vh;
+}
+
+section {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 1s ease;
+    padding: 20px;
+}
+
+section.active { opacity: 1; visibility: visible; }
+
+/* --- Random Flower Garden --- */
+#flower-garden {
+    position: absolute;
+    width: 100%; height: 100%;
+    overflow: hidden;
+}
+
+.bloom-flower {
+    position: absolute;
+    transform: scale(0);
+    animation: bloomScale 2.5s forwards ease-out;
+}
+
+@keyframes bloomScale {
+    0% { transform: scale(0) rotate(0deg); opacity: 0; }
+    100% { transform: scale(1) rotate(15deg); opacity: 1; }
+}
+
+.flower-svg { fill: #ffb7c5; }
+
+/* --- Intro Text & Controls --- */
+#intro-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeInControls 1.5s forwards;
+}
+
+.birthday-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5rem;
+    color: #5d4037;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+@keyframes fadeInControls {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Buttons --- */
+.btn {
+    padding: 14px 35px;
+    background: white;
+    border: none;
+    border-radius: 30px;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.hidden { display: none; }
+
+/* --- Message Area --- */
+#photo-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.falling-photo {
+    position: absolute;
+    width: 110px; height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.message-container {
+    max-width: 650px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 40px;
+    border-radius: 25px;
+    overflow-y: auto;
+    max-height: 80vh;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1.5s ease-out;
+}
+
+.message-container.animate-text { opacity: 1; transform: translateY(0); }
+
+.message-content p { margin-bottom: 20px; line-height: 1.7; font-size: 1.05rem; }
+
+/* --- Final Page --- */
+.dua-card {
+    background: white;
+    padding: 50px 30px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    max-width: 500px;
+}
+
+.arabic-text {
+    font-size: 1.9rem;
+    margin-bottom: 25px;
+    color: #333;
+    line-height: 2.2;
+    direction: rtl;
+}
+
+.translation-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #777;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .birthday-title { font-size: 1.4rem; letter-spacing: 0.3rem; }
+    .message-container { width: 95%; padding: 25px; }
+}
