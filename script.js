@@ -26,8 +26,19 @@ const imageUrls = [
     "https://i.imgur.com/mxetgNJ.jpeg", "https://i.imgur.com/KT2hav4.jpeg"
 ];
 
+// --- NEW: Image Preloader Function ---
+function preloadImages() {
+    imageUrls.forEach((url) => {
+        const img = new Image();
+        img.src = url;
+    });
+}
+
 // Initialize Flower Garden on load
 window.addEventListener('load', () => {
+    // Start preloading images immediately so they are ready for Page 2
+    preloadImages();
+
     const garden = document.getElementById('flower-garden');
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
@@ -35,7 +46,6 @@ window.addEventListener('load', () => {
         }, i * 250);
     }
     
-    // Reveal text and button after initial bloom
     setTimeout(() => {
         document.getElementById('intro-controls').classList.remove('hidden');
     }, 4500);
