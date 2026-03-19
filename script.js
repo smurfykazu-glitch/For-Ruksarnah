@@ -26,7 +26,6 @@ const imageUrls = [
     "https://i.imgur.com/mxetgNJ.jpeg", "https://i.imgur.com/KT2hav4.jpeg"
 ];
 
-// --- NEW: Image Preloader Function ---
 function preloadImages() {
     imageUrls.forEach((url) => {
         const img = new Image();
@@ -34,18 +33,14 @@ function preloadImages() {
     });
 }
 
-// Initialize Flower Garden on load
 window.addEventListener('load', () => {
-    // Start preloading images immediately so they are ready for Page 2
     preloadImages();
-
     const garden = document.getElementById('flower-garden');
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             createFlower(garden);
         }, i * 250);
     }
-    
     setTimeout(() => {
         document.getElementById('intro-controls').classList.remove('hidden');
     }, 4500);
@@ -57,7 +52,6 @@ function createFlower(container) {
     const size = 50 + Math.random() * 50;
     flower.style.left = Math.random() * 90 + '%';
     flower.style.top = Math.random() * 90 + '%';
-    
     flower.innerHTML = `
         <svg class="flower-svg" viewBox="0 0 100 100" style="width:${size}px; height:${size}px;">
             <circle cx="50" cy="50" r="12" fill="#ffd54f" />
@@ -71,7 +65,6 @@ function createFlower(container) {
     container.appendChild(flower);
 }
 
-// Navigation
 document.getElementById('toPage2').addEventListener('click', () => {
     switchPage('page1', 'page2');
     startPhotoFall();
@@ -97,8 +90,12 @@ function switchPage(oldId, newId) {
 function startPhotoFall() {
     const container = document.getElementById('photo-canvas');
     let count = 0;
+    
     const interval = setInterval(() => {
-        if (count >= imageUrls.length) { clearInterval(interval); return; }
+        // REPEAT LOGIC: If count reaches the end, reset it to 0
+        if (count >= imageUrls.length) { 
+            count = 0; 
+        }
 
         const img = document.createElement('img');
         img.src = imageUrls[count];
@@ -108,7 +105,8 @@ function startPhotoFall() {
         container.appendChild(img);
 
         let pos = -150;
-        const speed = 2 + Math.random() * 2;
+        const speed = 0.8 + Math.random() * 1; 
+        
         const fall = setInterval(() => {
             if (pos > window.innerHeight) {
                 clearInterval(fall);
@@ -119,5 +117,5 @@ function startPhotoFall() {
             }
         }, 16);
         count++;
-    }, 350);
+    }, 800); 
 }
